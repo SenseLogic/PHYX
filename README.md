@@ -1,4 +1,4 @@
-![](https://github.com/senselogic/PHYX/blob/master/LOGO/loremize.png)
+![](https://github.com/senselogic/PHYX/blob/master/LOGO/phyx.png)
 
 # Phyx
 
