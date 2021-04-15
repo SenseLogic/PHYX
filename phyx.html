@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            *
+            {
+                padding : 0;
+                margin : 0;
+            }
+
+            table
+            {
+                border-collapse : collapse;
+            }
+
+            textarea
+            {
+                overflow : scroll;
+                resize : none;
+                white-space: pre;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tbody>
+                <tr>
+                    <td colspan="2">
+                        <textarea id="OldCode" placeholder="Old code" spellcheck="false" style="width:49vw;height:90vh"></textarea>
+                    </td>
+                    <td colspan="2">
+                        <textarea id="NewCode" placeholder="New code" spellcheck="false" style="width:49vw;height:90vh"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button style="font-size:1.5vw" onclick="FixMediaQueries()">Fix</button>
+        <script>
+            // -- FUNCTIONS
+
+            function FixMediaQueries(
+                )
+            {
+                var
+                    code_has_changed,
+                    line_array,
+                    line_index,
+                    media_line_index,
+                    media_query,
+                    media_rule_first_line_index,
+                    media_rule_last_line_index,
+                    media_rule_line_array,
+                    media_rule_selector,
+                    rule_last_line_index,
+                    rule_last_line_index_map,
+                    rule_selector,
+                    style_line_index;
+
+                line_array = document.getElementById( "OldCode" ).value.split( "\t" ).join( "    " ).split( "\n" );
+
+                for ( line_index = 0;
+                      line_index < line_array.length;
+                      ++line_index )
+                {
+                    line_array[ line_index ] = line_array[ line_index ].trimRight();
+                }
+
+                rule_last_line_index_map = new Map();
+
+                do
+                {
+                    code_has_changed = false;
+
+                    for ( style_line_index = 0;
+                          style_line_index < line_array.length
+                          && !code_has_changed;
+                          ++style_line_index )
+                    {
+                        if ( line_array[ style_line_index ].startsWith( "<style" ) )
+                        {
+                            for ( media_line_index = style_line_index;
+                                  media_line_index + 2 < line_array.length
+                                  && line_array[ media_line_index ] !== "</style>"
+                                  && !code_has_changed;
+                                  ++media_line_index )
+                            {
+                                if ( line_array[ media_line_index ].startsWith( "    +Media(" )
+                                     && line_array[ media_line_index + 1 ] === "    {" )
+                                {
+                                    media_query = line_array[ media_line_index ];
+
+                                    while ( media_line_index + 2 < line_array.length
+                                            && line_array[ media_line_index + 2 ] === "" )
+                                    {
+                                        line_array.splice( media_line_index + 2, 1 );
+                                        code_has_changed = true;
+                                    }
+
+                                    if ( line_array[ media_line_index + 2 ] === "    }" )
+                                    {
+                                        line_array.splice( media_line_index, 3 );
+                                        code_has_changed = true;
+                                    }
+                                    else
+                                    {
+                                        for ( media_rule_first_line_index = media_line_index + 2;
+                                              media_rule_first_line_index + 1 < line_array.length
+                                              && line_array[ media_rule_first_line_index ] !== "    }"
+                                              && line_array[ media_rule_first_line_index ] !== "</style>"
+                                              && !code_has_changed;
+                                              ++media_rule_first_line_index )
+                                        {
+                                            if ( !line_array[ media_rule_first_line_index - 1 ].startsWith( "        ." )
+                                                 && !line_array[ media_rule_first_line_index - 1 ].endsWith( "," )
+                                                 && line_array[ media_rule_first_line_index ].startsWith( "        ." )
+                                                 && line_array[ media_rule_first_line_index + 1 ] === "        {" )
+                                            {
+                                                media_rule_selector = line_array[ media_rule_first_line_index ].trim();
+
+                                                for ( media_rule_last_line_index = media_rule_first_line_index + 1;
+                                                      media_rule_last_line_index < line_array.length;
+                                                      ++media_rule_last_line_index )
+                                                {
+                                                    if ( line_array[ media_rule_last_line_index ] === "        }" )
+                                                    {
+                                                        if ( rule_last_line_index_map.has( media_rule_selector ) )
+                                                        {
+                                                            rule_last_line_index = rule_last_line_index_map.get( media_rule_selector );
+                                                            media_rule_line_array = line_array.slice( media_rule_first_line_index, media_rule_last_line_index + 1 );
+                                                            media_rule_line_array.splice( 0, 0, "" );
+                                                            media_rule_line_array[ 1 ] = "    " + media_query;
+                                                            line_array.splice( media_rule_first_line_index, media_rule_last_line_index - media_rule_first_line_index + 1 );
+                                                            line_array.splice( rule_last_line_index, 0, ...media_rule_line_array );
+                                                            code_has_changed = true;
+                                                        }
+
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else if ( line_array[ media_line_index ].startsWith( "    ." ) )
+                                {
+                                    rule_selector = line_array[ media_line_index ].trim();
+                                }
+                                else if ( line_array[ media_line_index ] === "    }" )
+                                {
+                                    if ( rule_selector !== "" )
+                                    {
+                                        rule_last_line_index_map.set( rule_selector, media_line_index );
+                                        rule_selector = "";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                while ( code_has_changed );
+
+                document.getElementById( "NewCode" ).value = line_array.join( "\n" );
+            }
+
+            // -- STATEMENTS
+
+            document.getElementById( "OldCode" ).click();
+        </script>
+    </body>
+</html>
