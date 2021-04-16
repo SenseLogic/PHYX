@@ -6,7 +6,7 @@ Phoenix style fixer.
 
 ## Description
 
-Fix the style of a Phoenix component according to [Coda](https://github.com/senselogic/CODA) rules.
+Fixes the style of a Phoenix component according to [Coda](https://github.com/senselogic/CODA) rules.
 
 ## Limitations
 
