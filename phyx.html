@@ -37,7 +37,232 @@
         </table>
         <button style="font-size:1.5vw" onclick="FixMediaQueries()">Fix</button>
         <script>
+            // -- VARIABLES
+
+            var
+                PropertyNumberMap;
+
             // -- FUNCTIONS
+
+            function GetPropertyNumberMap(
+                )
+            {
+                var
+                    property_number;
+
+                property_number_map = new Map();
+
+                property_number = 0;
+                property_number_map.set( property_number++, "@extend" );
+
+                property_number = 64;
+                property_number_map.set( property_number++, "z-index" );
+                property_number_map.set( property_number++, "position" );
+                property_number_map.set( property_number++, "top" );
+                property_number_map.set( property_number++, "bottom" );
+                property_number_map.set( property_number++, "left" );
+                property_number_map.set( property_number++, "right" );
+                property_number_map.set( property_number++, "transform" );
+
+                property_number = 128;
+                property_number_map.set( property_number++, "box-sizing" );
+                property_number_map.set( property_number++, "margin" );
+                property_number_map.set( property_number++, "margin-top" );
+                property_number_map.set( property_number++, "margin-bottom" );
+                property_number_map.set( property_number++, "margin-left" );
+                property_number_map.set( property_number++, "margin-right" );
+                property_number_map.set( property_number++, "outline" );
+                property_number_map.set( property_number++, "height" );
+                property_number_map.set( property_number++, "min-height" );
+                property_number_map.set( property_number++, "max-height" );
+                property_number_map.set( property_number++, "width" );
+                property_number_map.set( property_number++, "min-width" );
+                property_number_map.set( property_number++, "max-width" );
+                property_number_map.set( property_number++, "border" );
+                property_number_map.set( property_number++, "border-top" );
+                property_number_map.set( property_number++, "border-bottom" );
+                property_number_map.set( property_number++, "border-left" );
+                property_number_map.set( property_number++, "border-right" );
+                property_number_map.set( property_number++, "border-width" );
+                property_number_map.set( property_number++, "border-style" );
+                property_number_map.set( property_number++, "border-color" );
+                property_number_map.set( property_number++, "border-image" );
+                property_number_map.set( property_number++, "border-radius" );
+                property_number_map.set( property_number++, "border-top-radius" );
+                property_number_map.set( property_number++, "border-top-left-radius" );
+                property_number_map.set( property_number++, "border-top-right-radius" );
+                property_number_map.set( property_number++, "border-bottom-radius" );
+                property_number_map.set( property_number++, "border-bottom-left-radius" );
+                property_number_map.set( property_number++, "border-bottom-right-radius" );
+                property_number_map.set( property_number++, "border-collapse" );
+                property_number_map.set( property_number++, "padding" );
+                property_number_map.set( property_number++, "padding-top" );
+                property_number_map.set( property_number++, "padding-bottom" );
+                property_number_map.set( property_number++, "padding-left" );
+                property_number_map.set( property_number++, "padding-right" );
+                property_number_map.set( property_number++, "overflow" );
+                property_number_map.set( property_number++, "overflow-y" );
+                property_number_map.set( property_number++, "overflow-x" );
+                property_number_map.set( property_number++, "resize" );
+
+                property_number = 192;
+                property_number_map.set( property_number++, "display" );
+                property_number_map.set( property_number++, "flex" );
+                property_number_map.set( property_number++, "flex-direction" );
+                property_number_map.set( property_number++, "flex-wrap" );
+                property_number_map.set( property_number++, "flex-grow" );
+                property_number_map.set( property_number++, "flex-shrink" );
+                property_number_map.set( property_number++, "flex-basis" );
+                property_number_map.set( property_number++, "flex-flow" );
+                property_number_map.set( property_number++, "grid-template" );
+                property_number_map.set( property_number++, "grid-template-rows" );
+                property_number_map.set( property_number++, "grid-template-columns" );
+                property_number_map.set( property_number++, "grid-auto-rows" );
+                property_number_map.set( property_number++, "grid-gap" );
+                property_number_map.set( property_number++, "gap" );
+                property_number_map.set( property_number++, "row-gap" );
+                property_number_map.set( property_number++, "column-gap" );
+                property_number_map.set( property_number++, "grid-area" );
+                property_number_map.set( property_number++, "grid-row" );
+                property_number_map.set( property_number++, "grid-column" );
+                property_number_map.set( property_number++, "justity-content" );
+                property_number_map.set( property_number++, "justify-items" );
+                property_number_map.set( property_number++, "justify-self" );
+                property_number_map.set( property_number++, "align-content" );
+                property_number_map.set( property_number++, "align-items" );
+                property_number_map.set( property_number++, "align-self" );
+                property_number_map.set( property_number++, "order" );
+                property_number_map.set( property_number++, "float" );
+                property_number_map.set( property_number++, "clear" );
+                property_number_map.set( property_number++, "shape-outside" );
+                property_number_map.set( property_number++, "clip-path" );
+
+                property_number = 256;
+                property_number_map.set( property_number++, "content" );
+                property_number_map.set( property_number++, "visibility" );
+                property_number_map.set( property_number++, "opacity" );
+                property_number_map.set( property_number++, "object-fit" );
+                property_number_map.set( property_number++, "background" );
+                property_number_map.set( property_number++, "background-clip" );
+                property_number_map.set( property_number++, "background-color" );
+                property_number_map.set( property_number++, "background-image" );
+                property_number_map.set( property_number++, "background-origin" );
+                property_number_map.set( property_number++, "background-position" );
+                property_number_map.set( property_number++, "background-repeat" );
+                property_number_map.set( property_number++, "background-size" );
+                property_number_map.set( property_number++, "background-attachment" );
+                property_number_map.set( property_number++, "box-shadow" );
+
+                property_number = 320;
+                property_number_map.set( property_number++, "list-style-type" );
+                property_number_map.set( property_number++, "line-height" );
+                property_number_map.set( property_number++, "font" );
+                property_number_map.set( property_number++, "font-family" );
+                property_number_map.set( property_number++, "font-size" );
+                property_number_map.set( property_number++, "font-weight" );
+                property_number_map.set( property_number++, "font-style" );
+                property_number_map.set( property_number++, "font-stretch" );
+                property_number_map.set( property_number++, "font-variant" );
+                property_number_map.set( property_number++, "white-space" );
+                property_number_map.set( property_number++, "overflow-wrap" );
+                property_number_map.set( property_number++, "word-wrap" );
+                property_number_map.set( property_number++, "word-break" );
+                property_number_map.set( property_number++, "word-spacing" );
+                property_number_map.set( property_number++, "letter-spacing" );
+                property_number_map.set( property_number++, "caption-side" );
+                property_number_map.set( property_number++, "vertical-align" );
+                property_number_map.set( property_number++, "text-align" );
+                property_number_map.set( property_number++, "text-align-last" );
+                property_number_map.set( property_number++, "text-indent" );
+                property_number_map.set( property_number++, "text-justify" );
+                property_number_map.set( property_number++, "text-overflow" );
+                property_number_map.set( property_number++, "text-decoration" );
+                property_number_map.set( property_number++, "text-decoration-line" );
+                property_number_map.set( property_number++, "text-decoration-style" );
+                property_number_map.set( property_number++, "text-decoration-color" );
+                property_number_map.set( property_number++, "text-transform" );
+                property_number_map.set( property_number++, "text-shadow" );
+                property_number_map.set( property_number++, "color" );
+
+                property_number = 384;
+                property_number_map.set( property_number++, "scroll-snap-type" );
+                property_number_map.set( property_number++, "scroll-snap-points-y" );
+                property_number_map.set( property_number++, "scroll-snap-points-x" );
+                property_number_map.set( property_number++, "user-select" );
+                property_number_map.set( property_number++, "pointer-events" );
+                property_number_map.set( property_number++, "cursor" );
+                property_number_map.set( property_number++, "transition" );
+                property_number_map.set( property_number++, "transition-property" );
+                property_number_map.set( property_number++, "transition-delay" );
+                property_number_map.set( property_number++, "transition-duration" );
+                property_number_map.set( property_number++, "transition-timing-function" );
+                property_number_map.set( property_number++, "animation" );
+                property_number_map.set( property_number++, "animation-name" );
+                property_number_map.set( property_number++, "animation-delay" );
+                property_number_map.set( property_number++, "animation-duration" );
+                property_number_map.set( property_number++, "animation-timing-function" );
+                property_number_map.set( property_number++, "animation-iteration-count" );
+                property_number_map.set( property_number++, "animation-direction" );
+                property_number_map.set( property_number++, "animation-fill-mode" );
+                property_number_map.set( property_number++, "animation-play-state" );
+
+                property_number = 512;
+                property_number_map.set( property_number++, "+Media" );
+
+                return property_number_map;
+            }
+
+            // ~~
+
+            function GetProperty(
+                line
+                )
+            {
+                line = line.trim();
+
+                if ( line.startsWith( "+Media(" ) )
+                {
+                    return "+Media";
+                }
+                else if ( line.startsWith( "@" ) )
+                {
+                    return line.split( " " )[ 0 ];
+                }
+                else
+                {
+                    return line.split( ":" )[ 0 ].trim();
+                }
+            }
+
+            // ~~
+
+            function GetPropertyNumber(
+                property
+                )
+            {
+                var
+                    property_number;
+
+                if ( PropertyNumberMap.has( property ) )
+                {
+                    return PropertyNumberMap.get( property );
+                }
+                else
+                {
+                    return 448;
+                }
+            }
+
+            // ~~
+
+            function GetPropertyCategory(
+                property_number
+                )
+            {
+                return property >> 6;
+            }
+
+            // ~~
 
             function FixMediaQueries(
                 )

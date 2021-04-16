@@ -2,11 +2,15 @@
 
 # Phyx
 
-Phoenix media queries fixer.
+Phoenix style fixer.
+
+## Description
+
+Fix the style of a Phoenix component according to [Coda](https://github.com/senselogic/CODA) rules.
 
 ## Limitations
 
-Only works on Coda-compliant code.
+Relies on Coda-compliant indentation.
 
 ## Version
 
