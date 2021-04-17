@@ -203,7 +203,7 @@ phyx <file path filter> ...
 phyx VIEW//*.pht STYLE/*.styl
 ```
 
-Fixes the style declarations in the `.pht` files of the `VIEW/` folder and subfolders,
+Fixes style declarations in the `.pht` files of the `VIEW/` folder and subfolders,
 and in the `.styl` files of the `STYLE/` folder.
 
 ## Limitations
