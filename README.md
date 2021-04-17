@@ -10,94 +10,90 @@ Fixes style declarations according to [Coda](https://github.com/senselogic/CODA)
 
 ## Sample
 
-Original file :
+Old file :
 
 ```bash
-<style file="header_menu.styl">
+.header-menu
+{
 
+    @extend menu;
+    display: block;
+    background:
+        url( '/static/image/header_menu/first_background.png' ),
+        url( '/static/image/header_menu/second_background.png' );
+    padding: 0;
+    margin: 0;
+    border: 0;
+    +Media( above-10em )
+    {
+        display: block;
+        padding: 11px;
+        margin: 11px;
+        border: 11px;
+    }
+
+}
+
+.header-menu-button
+{
+    @extend menu-button;
+    display: block;
+    background:
+        url( '/static/image/header_menu/first_background.png' ),
+        url( '/static/image/header_menu/second_background.png' );
+    padding: 0;
+    margin: 0;
+
+    border: 0;
+    +Media( above-10em )
+    {
+        display: block;
+        padding: 12px;
+        margin: 12px;
+        border: 12px;
+    }
+}
+
++Media( above-20em )
+{
     .header-menu
     {
-
-        @extend menu;
         display: block;
-        background:
-            url( '/static/image/header_menu/first_background.png' ),
-            url( '/static/image/header_menu/second_background.png' );
-        padding: 0;
-        margin: 0;
-        border: 0;
-        +Media( above-10em )
-        {
-            display: block;
-            padding: 11px;
-            margin: 11px;
-            border: 11px;
-        }
-
+        padding: 21px;
+        margin: 21px;
+        border: 21px;
     }
 
     .header-menu-button
     {
-        @extend menu-button;
         display: block;
-        background:
-            url( '/static/image/header_menu/first_background.png' ),
-            url( '/static/image/header_menu/second_background.png' );
-        padding: 0;
-        margin: 0;
-
-        border: 0;
-        +Media( above-10em )
-        {
-            display: block;
-            padding: 12px;
-            margin: 12px;
-            border: 12px;
-        }
+        padding: 22px;
+        margin: 22px;
+        border: 22px;
     }
+}
 
-    +Media( above-20em )
++Media( above-30em )
+{
+    .header-menu
     {
-        .header-menu
-        {
-            display: block;
-            padding: 21px;
-            margin: 21px;
-            border: 21px;
-        }
-
-        .header-menu-button
-        {
-            display: block;
-            padding: 22px;
-            margin: 22px;
-            border: 22px;
-        }
+        display: block;
+        padding: 31px;
+        margin: 31px;
+        border: 31px;
     }
 
-    +Media( above-30em )
+    .header-menu-button
     {
-        .header-menu
-        {
-            display: block;
-            padding: 31px;
-            margin: 31px;
-            border: 31px;
-        }
-
-        .header-menu-button
-        {
-            display: block;
-            padding: 32px;
-            margin: 32px;
-            border: 32px;
-        }
+        display: block;
+        padding: 32px;
+        margin: 32px;
+        border: 32px;
     }
-
-</style>
+}
 ```
 
-Fixed file :
+New file :
 
 ```php
 .header-menu
