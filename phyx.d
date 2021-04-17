@@ -166,15 +166,6 @@ string ReadText(
 
 // ~~
 
-bool HasTags(
-    string file_text
-    )
-{
-    return file_text.strip().startsWith( "<" );
-}
-
-// ~~
-
 void MakePropertyIndexMap(
     )
 {
@@ -392,27 +383,29 @@ long GetCategoryIndex(
 
 // ~~
 
-bool IsExtend(
-    string line
+bool HasTags(
+    string file_text
     )
 {
-    return line.strip().startsWith( "@extend " );
+    return file_text.stripLeft().startsWith( "<" );
 }
 
 // ~~
 
-bool IsMedia(
+bool IsOpeningTag(
     string line
     )
 {
-    string
-        trimmed_line;
+    return line.stripLeft().startsWith( "<style" );
+}
 
-    trimmed_line = line.strip();
+// ~~
 
-    return
-        trimmed_line.startsWith( "@media " )
-        || trimmed_line.startsWith( "+Media(" );
+bool IsClosingTag(
+    string line
+    )
+{
+    return line.strip() == "</style>";
 }
 
 // ~~
@@ -431,6 +424,31 @@ bool IsClosingBrace(
     )
 {
     return line.strip() == "}";
+}
+
+// ~~
+
+bool IsExtend(
+    string line
+    )
+{
+    return line.stripLeft().startsWith( "@extend " );
+}
+
+// ~~
+
+bool IsMedia(
+    string line
+    )
+{
+    string
+        trimmed_line;
+
+    trimmed_line = line.stripLeft();
+
+    return
+        trimmed_line.startsWith( "+Media(" )
+        || trimmed_line.startsWith( "@media " );
 }
 
 // ~~
@@ -495,7 +513,8 @@ void RemoveEmptyLines(
 // ~~
 
 void EmbedMedia(
-    ref string[] line_array
+    ref string[] line_array,
+    bool file_has_tags
     )
 {
     bool
@@ -510,11 +529,21 @@ void EmbedMedia(
     long[ string ]
         rule_last_line_index_map;
     string
+        indentation,
         media_query,
         media_rule_selector,
         rule_selector;
     string[]
         media_rule_line_array;
+
+    if ( file_has_tags )
+    {
+        indentation = "    ";
+    }
+    else
+    {
+        indentation = "";
+    }
 
     do
     {
@@ -525,16 +554,17 @@ void EmbedMedia(
               && !line_array_has_changed;
               ++style_line_index )
         {
-            if ( line_array[ style_line_index ].startsWith( "<style" ) )
+            if ( line_array[ style_line_index ].IsOpeningTag()
+                 || !file_has_tags )
             {
                 for ( media_line_index = style_line_index;
                       !line_array_has_changed
                       && media_line_index + 2 < line_array.length
-                      && line_array[ media_line_index ] != "</style>";
+                      && !line_array[ media_line_index ].IsClosingTag();
                       ++media_line_index )
                 {
-                    if ( line_array[ media_line_index ].startsWith( "    +Media(" )
-                         && line_array[ media_line_index + 1 ] == "    {" )
+                    if ( line_array[ media_line_index ].startsWith( indentation ~ "+Media(" )
+                         && line_array[ media_line_index + 1 ] == indentation ~ "{" )
                     {
                         media_query = line_array[ media_line_index ];
 
@@ -545,7 +575,7 @@ void EmbedMedia(
                             line_array_has_changed = true;
                         }
 
-                        if ( line_array[ media_line_index + 2 ] == "    }" )
+                        if ( line_array[ media_line_index + 2 ] == indentation ~ "}" )
                         {
                             line_array = line_array[ 0 .. media_line_index ] ~ line_array[ media_line_index + 3 .. $ ];
                             line_array_has_changed = true;
@@ -555,14 +585,14 @@ void EmbedMedia(
                             for ( media_rule_first_line_index = media_line_index + 2;
                                   !line_array_has_changed
                                   && media_rule_first_line_index + 1 < line_array.length
-                                  && line_array[ media_rule_first_line_index ] != "    }"
-                                  && line_array[ media_rule_first_line_index ] != "</style>";
+                                  && line_array[ media_rule_first_line_index ] != indentation ~ "}"
+                                  && !line_array[ media_rule_first_line_index ].IsClosingTag();
                                   ++media_rule_first_line_index )
                             {
-                                if ( !line_array[ media_rule_first_line_index - 1 ].startsWith( "        ." )
+                                if ( !line_array[ media_rule_first_line_index - 1 ].startsWith( indentation ~ "    ." )
                                      && !line_array[ media_rule_first_line_index - 1 ].endsWith( "," )
-                                     && line_array[ media_rule_first_line_index ].startsWith( "        ." )
-                                     && line_array[ media_rule_first_line_index + 1 ] == "        {" )
+                                     && line_array[ media_rule_first_line_index ].startsWith( indentation ~ "    ." )
+                                     && line_array[ media_rule_first_line_index + 1 ] == indentation ~ "    {" )
                                 {
                                     media_rule_selector = line_array[ media_rule_first_line_index ].strip();
 
@@ -570,7 +600,7 @@ void EmbedMedia(
                                           media_rule_last_line_index < line_array.length;
                                           ++media_rule_last_line_index )
                                     {
-                                        if ( line_array[ media_rule_last_line_index ] == "        }" )
+                                        if ( line_array[ media_rule_last_line_index ] == indentation ~ "    }" )
                                         {
                                             if ( ( media_rule_selector in rule_last_line_index_map ) !is null )
                                             {
@@ -595,11 +625,11 @@ void EmbedMedia(
                             }
                         }
                     }
-                    else if ( line_array[ media_line_index ].startsWith( "    ." ) )
+                    else if ( line_array[ media_line_index ].startsWith( indentation ~ "." ) )
                     {
                         rule_selector = line_array[ media_line_index ].strip();
                     }
-                    else if ( line_array[ media_line_index ] == "    }" )
+                    else if ( line_array[ media_line_index ] == indentation ~ "}" )
                     {
                         if ( rule_selector != "" )
                         {
@@ -633,12 +663,11 @@ void SortDeclarations(
         line,
         next_line;
 
-    line_is_style = !file_has_tags;
-
     for ( pass_index = 0;
           pass_index < 3;
           ++pass_index )
     {
+        line_is_style = !file_has_tags;
         line_is_swapped = false;
 
         for ( line_index = 0;
@@ -648,14 +677,27 @@ void SortDeclarations(
             line = line_array[ line_index ];
 
             if ( file_has_tags
-                 && line.stripLeft().startsWith( "<style" ) )
+                 && line.IsOpeningTag() )
             {
                 line_is_style = true;
+
+                while ( line_index + 1 < line_array.length
+                        && line_array[ line_index + 1 ] == "" )
+                {
+                    line_array = line_array[ 0 .. line_index + 1 ] ~ line_array[ line_index + 2 .. $ ];
+                }
             }
             else if ( file_has_tags
-                      && line.strip() == "</style>" )
+                      && line.IsClosingTag() )
             {
                 line_is_style = false;
+
+                while ( line_index - 1 >= 0
+                        && line_array[ line_index - 1 ] == "" )
+                {
+                    line_array = line_array[ 0 .. line_index - 1 ] ~ line_array[ line_index .. $ ];
+                    --line_index;
+                }
             }
             else if ( line_is_style )
             {
@@ -743,28 +785,29 @@ void ProcessFile(
     string file_path
     )
 {
+    bool
+        file_has_tags;
     string
-        new_file_text,
-        old_file_text;
+        processed_file_text,
+        file_text;
     string[]
         line_array;
 
-    old_file_text = file_path.ReadText();
-    line_array = old_file_text.GetLineArray();
+    file_text = file_path.ReadText();
+
+    line_array = file_text.GetLineArray();
     line_array.RemoveEmptyLines();
+    file_has_tags = HasTags( file_text );
 
-    if ( file_path.endsWith( ".pht" ) )
+    line_array.EmbedMedia( file_has_tags );
+    line_array.RemoveEmptyLines();
+    line_array.SortDeclarations( file_has_tags );
+
+    processed_file_text = line_array.join( '\n' );
+
+    if ( processed_file_text != file_text )
     {
-        line_array.EmbedMedia();
-        line_array.RemoveEmptyLines();
-    }
-
-    line_array.SortDeclarations( HasTags( old_file_text ) );
-    new_file_text = line_array.join( '\n' );
-
-    if ( new_file_text != old_file_text )
-    {
-        file_path.WriteText( new_file_text );
+        file_path.WriteText( processed_file_text );
     }
 }
 
@@ -819,7 +862,7 @@ void main(
         writeln( "Usage :" );
         writeln( "    phyx <file path filter> ..." );
         writeln( "Examples :" );
-        writeln( "    phyx STYLE//*.styl VIEW//*.pht" );
+        writeln( "    phyx VIEW//*.pht STYLE/*.styl" );
 
         PrintError( "Invalid arguments : " ~ argument_array.to!string() );
     }

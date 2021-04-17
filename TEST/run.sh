@@ -2,5 +2,5 @@
 set -x
 cp ORIGINAL/CODE/STYLE/* FIXED/CODE/STYLE/
 cp ORIGINAL/CODE/VIEW/* FIXED/CODE/VIEW/
-../phyx FIXED//*.pht FIXED//*.styl
+../phyx FIXED/CODE/VIEW//*.pht FIXED/CODE/STYLE/*.styl
 

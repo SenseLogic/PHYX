@@ -1,9 +1,9 @@
-
 <style file="header_menu.styl">
 
     .header-menu
     {
 
+        @extend menu;
         display: block;
         background:
             url( '/static/image/header_menu/first_background.png' ),
@@ -11,7 +11,6 @@
         padding: 0;
         margin: 0;
         border: 0;
-
         +Media( above-10em )
         {
             display: block;
@@ -24,14 +23,15 @@
 
     .header-menu-button
     {
+        @extend menu-button;
         display: block;
         background:
             url( '/static/image/header_menu/first_background.png' ),
             url( '/static/image/header_menu/second_background.png' );
         padding: 0;
         margin: 0;
-        border: 0;
 
+        border: 0;
         +Media( above-10em )
         {
             display: block;
@@ -43,7 +43,6 @@
 
     +Media( above-20em )
     {
-
         .header-menu
         {
             display: block;
@@ -52,7 +51,6 @@
             border: 21px;
         }
 
-
         .header-menu-button
         {
             display: block;
@@ -60,7 +58,6 @@
             margin: 22px;
             border: 22px;
         }
-
     }
 
     +Media( above-30em )
@@ -81,5 +78,5 @@
             border: 32px;
         }
     }
-</style>
 
+</style>

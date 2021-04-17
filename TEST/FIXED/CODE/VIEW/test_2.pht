@@ -1,5 +1,4 @@
 <style file="header_menu.styl">
-
     .header-menu
     {
         @extend menu;
@@ -104,7 +103,7 @@
 
         +Media( above-30em )
         {
-            @extend menu;
+            @extend menu-button;
 
             z-index: 100;
             position: fixed;
@@ -130,7 +129,7 @@
 
         +Media( above-40em )
         {
-            @extend menu;
+            @extend menu-button;
 
             z-index: 100;
             position: fixed;
@@ -156,7 +155,7 @@
 
         +Media( above-50em )
         {
-            @extend menu;
+            @extend menu-button;
 
             z-index: 100;
             position: fixed;
@@ -181,7 +180,7 @@
 
         +Media( above-60em )
         {
-            @extend menu;
+            @extend menu-button;
 
             z-index: 100;
             position: fixed;
@@ -205,5 +204,4 @@
             transition: background-color 0.3s ease;
         }
     }
-
 </style>

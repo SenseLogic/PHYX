@@ -1,7 +1,8 @@
 <style file="header_menu.styl">
-
     .header-menu
     {
+        @extend menu;
+
         margin: 0;
         border: 0;
         padding: 0;
@@ -42,6 +43,8 @@
 
     .header-menu-button
     {
+        @extend menu-button;
+
         margin: 0;
         border: 0;
         padding: 0;
@@ -79,5 +82,4 @@
             display: block;
         }
     }
-
 </style>

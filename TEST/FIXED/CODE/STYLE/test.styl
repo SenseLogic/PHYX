@@ -1,5 +1,7 @@
 .header-menu
 {
+    @extend menu;
+
     margin: 0;
     border: 0;
     padding: 0;
@@ -18,10 +20,30 @@
 
         display: block;
     }
+
+    +Media( above-20em )
+    {
+        margin: 21px;
+        border: 21px;
+        padding: 21px;
+
+        display: block;
+    }
+
+    +Media( above-30em )
+    {
+        margin: 31px;
+        border: 31px;
+        padding: 31px;
+
+        display: block;
+    }
 }
 
 .header-menu-button
 {
+    @extend menu-button;
+
     margin: 0;
     border: 0;
     padding: 0;
@@ -40,20 +62,8 @@
 
         display: block;
     }
-}
 
-+Media( above-20em )
-{
-    .header-menu
-    {
-        margin: 21px;
-        border: 21px;
-        padding: 21px;
-
-        display: block;
-    }
-
-    .header-menu-button
+    +Media( above-20em )
     {
         margin: 22px;
         border: 22px;
@@ -61,20 +71,8 @@
 
         display: block;
     }
-}
 
-+Media( above-30em )
-{
-    .header-menu
-    {
-        margin: 31px;
-        border: 31px;
-        padding: 31px;
-
-        display: block;
-    }
-
-    .header-menu-button
+    +Media( above-30em )
     {
         margin: 32px;
         border: 32px;
