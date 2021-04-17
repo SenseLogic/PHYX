@@ -10,7 +10,7 @@ Fixes style declarations according to [Coda](https://github.com/senselogic/CODA)
 
 ## Sample
 
-Old file :
+Before :
 
 ```bash
 .header-menu
@@ -93,7 +93,7 @@ Old file :
 }
 ```
 
-New file :
+After :
 
 ```php
 .header-menu
