@@ -21,11 +21,8 @@
 // -- IMPORTS
 
 import core.stdc.stdlib : exit;
-import std.algorithm: sort;
 import std.conv : to;
-import std.file : dirEntries, exists, mkdirRecurse, readText, remove, rmdir, write, SpanMode;
-import std.path : globMatch;
-import std.regex : regex, replaceAll;
+import std.file : dirEntries, readText, write, SpanMode;
 import std.stdio : writeln;
 import std.string : endsWith, indexOf, join, lastIndexOf, replace, split, startsWith, strip, stripLeft, stripRight;
 
@@ -129,11 +126,7 @@ void WriteText(
 
     try
     {
-        if ( ( !file_path.exists()
-               || file_path.readText() != file_text ) )
-        {
-            file_path.write( file_text );
-        }
+        file_path.write( file_text );
     }
     catch ( Exception exception )
     {
