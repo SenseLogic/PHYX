@@ -1,0 +1,245 @@
+
+<style file="header_menu.styl">
+
+    .header-menu
+    {
+
+
+        @extend menu;
+        align-items: center;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        left: 0;
+
+
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        position: fixed;
+        right: 0;
+        top: 0;
+        transition: background-color 0.3s ease;
+        z-index: 100;
+
+
+        background:
+            url( "/static/image/header/menu_button.svg" ) no-repeat center center,
+            url( "/static/image/header/menu_button.svg" ) no-repeat center center;
+        background-size: contain;
+
+
+    }
+
+    .header-menu-button
+    {
+
+
+        @extend menu;
+        align-items: center;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        left: 0;
+
+
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        position: fixed;
+        right: 0;
+        top: 0;
+        transition: background-color 0.3s ease;
+        z-index: 100;
+
+
+        background:
+            url( "/static/image/header/menu_button.svg" ) no-repeat center center,
+            url( "/static/image/header/menu_button.svg" ) no-repeat center center;
+        background-size: contain;
+
+
+        +Media( above-30em )
+        {
+
+
+            @extend menu;
+            align-items: center;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            left: 0;
+
+
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transition: background-color 0.3s ease;
+            z-index: 100;
+
+
+            background:
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center,
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center;
+            background-size: contain;
+
+
+        }
+
+        +Media( above-40em )
+        {
+
+
+            @extend menu;
+            align-items: center;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            left: 0;
+
+
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transition: background-color 0.3s ease;
+            z-index: 100;
+
+
+            background:
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center,
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center;
+            background-size: contain;
+
+
+        }
+
+    }
+
+    +Media( above-50em )
+    {
+
+        .header-menu
+        {
+
+
+            @extend menu;
+            align-items: center;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            left: 0;
+
+
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transition: background-color 0.3s ease;
+            z-index: 100;
+
+
+            background:
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center;
+            background-size: contain;
+
+
+        }
+
+        .header-menu-button
+        {
+
+
+            @extend menu;
+            align-items: center;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            left: 0;
+
+
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transition: background-color 0.3s ease;
+            z-index: 100;
+
+
+            background:
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center;
+            background-size: contain;
+
+
+        }
+
+    }
+
+    +Media( above-60em )
+    {
+
+        .header-menu
+        {
+
+
+            @extend menu;
+            align-items: center;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            left: 0;
+
+
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transition: background-color 0.3s ease;
+            z-index: 100;
+
+
+            background:
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center,
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center;
+            background-size: contain;
+
+
+        }
+
+        .header-menu-button
+        {
+
+
+            @extend menu;
+            align-items: center;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            left: 0;
+
+
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transition: background-color 0.3s ease;
+            z-index: 100;
+
+
+            background:
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center,
+                url( "/static/image/header/menu_button.svg" ) no-repeat center center;
+            background-size: contain;
+
+
+        }
+
+    }
+
+</style>
+

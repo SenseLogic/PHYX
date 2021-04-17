@@ -1,0 +1,83 @@
+<style file="header_menu.styl">
+
+    .header-menu
+    {
+        margin: 0;
+        border: 0;
+        padding: 0;
+
+        display: block;
+
+        background:
+            url( '/static/image/header_menu/first_background.png' ),
+            url( '/static/image/header_menu/second_background.png' );
+
+        +Media( above-10em )
+        {
+            margin: 11px;
+            border: 11px;
+            padding: 11px;
+
+            display: block;
+        }
+
+        +Media( above-20em )
+        {
+            margin: 21px;
+            border: 21px;
+            padding: 21px;
+
+            display: block;
+        }
+
+        +Media( above-30em )
+        {
+            margin: 31px;
+            border: 31px;
+            padding: 31px;
+
+            display: block;
+        }
+    }
+
+    .header-menu-button
+    {
+        margin: 0;
+        border: 0;
+        padding: 0;
+
+        display: block;
+
+        background:
+            url( '/static/image/header_menu/first_background.png' ),
+            url( '/static/image/header_menu/second_background.png' );
+
+        +Media( above-10em )
+        {
+            margin: 12px;
+            border: 12px;
+            padding: 12px;
+
+            display: block;
+        }
+
+        +Media( above-20em )
+        {
+            margin: 22px;
+            border: 22px;
+            padding: 22px;
+
+            display: block;
+        }
+
+        +Media( above-30em )
+        {
+            margin: 32px;
+            border: 32px;
+            padding: 32px;
+
+            display: block;
+        }
+    }
+
+</style>
