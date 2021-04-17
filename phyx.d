@@ -3,7 +3,7 @@
 
     https://github.com/senselogic/PHYX
 
-    Copyright (C) 2017 Eric Pelzer (ecstatic.coder@gmail.com)
+    Copyright (C) 2021 Eric Pelzer (ecstatic.coder@gmail.com)
 
     Phyx is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
