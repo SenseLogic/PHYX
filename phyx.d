@@ -890,7 +890,7 @@ void main(
         writeln( "Usage :" );
         writeln( "    phyx <file path filter> ..." );
         writeln( "Examples :" );
-        writeln( "    phyx VIEW//*.pht STYLE/*.styl" );
+        writeln( "    phyx \"VIEW//*.pht\" \"STYLE/*.styl\"" );
 
         PrintError( "Invalid arguments : " ~ argument_array.to!string() );
     }

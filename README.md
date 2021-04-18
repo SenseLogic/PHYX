@@ -2,11 +2,11 @@
 
 # Phyx
 
-Phoenix style fixer.
+Phoenix code fixer.
 
 ## Description
 
-Fixes style declarations according to [Coda](https://github.com/senselogic/CODA) rules.
+Fixes newlines and style declarations according to [Coda](https://github.com/senselogic/CODA) rules.
 
 ## Sample
 
@@ -200,11 +200,10 @@ phyx <file path filter> ...
 ### Example
 
 ```bash
-phyx VIEW//*.pht STYLE/*.styl
+phyx ".//*.pht" ".//*.phx" ".//*.styl"
 ```
 
-Fixes style declarations in the `.pht` files of the `VIEW/` folder and subfolders,
-and in the `.styl` files of the `STYLE/` folder.
+Fixes newlines and style declarations in `.pht`, `.phx` and `.styl` files of the current folder and its subfolders.
 
 ## Limitations
 
