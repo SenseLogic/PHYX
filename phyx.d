@@ -455,6 +455,26 @@ string[] GetLineArray(
 
 // ~~
 
+string GetText(
+    string[] line_array
+    )
+{
+    string
+        text;
+
+    text = line_array.join( '\n' );
+
+    if ( text != ""
+         && !text.endsWith( '\n' ) )
+    {
+        text ~= '\n';
+    }
+
+    return text;
+}
+
+// ~~
+
 void RemoveEmptyLines(
     ref string[] line_array
     )
@@ -787,16 +807,15 @@ void ProcessFile(
         line_array;
 
     file_text = file_path.ReadText();
+    file_has_tags = HasTags( file_text );
 
     line_array = file_text.GetLineArray();
     line_array.RemoveEmptyLines();
-    file_has_tags = HasTags( file_text );
-
     line_array.EmbedMedia( file_has_tags );
     line_array.RemoveEmptyLines();
     line_array.SortDeclarations( file_has_tags );
 
-    processed_file_text = line_array.join( '\n' );
+    processed_file_text = GetText( line_array );
 
     if ( processed_file_text != file_text )
     {
