@@ -376,6 +376,17 @@ long GetCategoryIndex(
 
 // ~~
 
+bool HasDeclarations(
+    string file_path
+    )
+{
+    return
+        file_path.endsWith( ".pht" )
+        || file_path.endsWith( ".styl" );
+}
+
+// ~~
+
 bool HasTags(
     string file_text
     )
@@ -807,13 +818,18 @@ void ProcessFile(
         line_array;
 
     file_text = file_path.ReadText();
-    file_has_tags = HasTags( file_text );
 
     line_array = file_text.GetLineArray();
     line_array.RemoveEmptyLines();
-    line_array.EmbedMedia( file_has_tags );
-    line_array.RemoveEmptyLines();
-    line_array.SortDeclarations( file_has_tags );
+
+    if ( file_path.HasDeclarations() )
+    {
+        file_has_tags = HasTags( file_text );
+
+        line_array.EmbedMedia( file_has_tags );
+        line_array.RemoveEmptyLines();
+        line_array.SortDeclarations( file_has_tags );
+    }
 
     processed_file_text = GetText( line_array );
 
