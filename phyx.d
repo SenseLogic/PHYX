@@ -22,7 +22,7 @@
 
 import core.stdc.stdlib : exit;
 import std.conv : to;
-import std.file : dirEntries, readText, write, SpanMode;
+import std.file : dirEntries, exists, readText, write, SpanMode;
 import std.stdio : writeln;
 import std.string : endsWith, indexOf, join, lastIndexOf, replace, split, startsWith, strip, stripLeft, stripRight;
 
@@ -122,11 +122,23 @@ void WriteText(
     string file_text
     )
 {
-    writeln( "Writing file : ", file_path );
+    file_text = file_text.stripRight();
+
+    if ( file_text != ""
+         && !file_text.endsWith( '\n' ) )
+    {
+        file_text ~= '\n';
+    }
 
     try
     {
-        file_path.write( file_text );
+        if ( !file_path.exists()
+             || file_path.readText() != file_text )
+        {
+            writeln( "Writing file : ", file_path );
+
+            file_path.write( file_text );
+        }
     }
     catch ( Exception exception )
     {
@@ -155,6 +167,26 @@ string ReadText(
     }
 
     return file_text;
+}
+
+// ~~
+
+long GetIndentationSpaceCount(
+    string line
+    )
+{
+    long
+        indentation_space_count;
+
+    indentation_space_count = 0;
+
+    while ( indentation_space_count < line.length
+            && line[ indentation_space_count ] == ' ' )
+    {
+        ++indentation_space_count;
+    }
+
+    return indentation_space_count;
 }
 
 // ~~
@@ -466,26 +498,6 @@ string[] GetLineArray(
 
 // ~~
 
-string GetText(
-    string[] line_array
-    )
-{
-    string
-        text;
-
-    text = line_array.join( '\n' );
-
-    if ( text != ""
-         && !text.endsWith( '\n' ) )
-    {
-        text ~= '\n';
-    }
-
-    return text;
-}
-
-// ~~
-
 void RemoveEmptyLines(
     ref string[] line_array
     )
@@ -740,8 +752,11 @@ void SortDeclarations(
                             line_array = line_array[ 0 .. line_index + 1 ] ~ line_array[ line_index + 2 .. $ ];
                         }
 
-                        while ( line_index + 1 < line_array.length
-                                && line_array[ line_index + 1 ] == "" )
+                        while ( line_index + 2 < line_array.length
+                                && line_array[ line_index + 1 ] == ""
+                                && ( line_array[ line_index + 2 ] == ""
+                                     || line_array[ line_index + 2 ].GetIndentationSpaceCount()
+                                        == line_array[ line_index ].GetIndentationSpaceCount() ) )
                         {
                             line_array = line_array[ 0 .. line_index + 1 ] ~ line_array[ line_index + 2 .. $ ];
                         }
@@ -812,7 +827,6 @@ void ProcessFile(
     bool
         file_has_tags;
     string
-        processed_file_text,
         file_text;
     string[]
         line_array;
@@ -831,12 +845,7 @@ void ProcessFile(
         line_array.SortDeclarations( file_has_tags );
     }
 
-    processed_file_text = GetText( line_array );
-
-    if ( processed_file_text != file_text )
-    {
-        file_path.WriteText( processed_file_text );
-    }
+    file_path.WriteText( line_array.join( '\n' ) );
 }
 
 // ~~
