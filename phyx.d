@@ -23,13 +23,22 @@
 import core.stdc.stdlib : exit;
 import std.conv : to;
 import std.file : dirEntries, exists, readText, write, SpanMode;
+import std.math : round;
+import std.regex : matchFirst, regex, Captures, Regex;
 import std.stdio : writeln;
 import std.string : endsWith, indexOf, join, lastIndexOf, replace, split, startsWith, strip, stripLeft, stripRight;
 
 // -- VARIABLES
 
+bool
+    MediaOptionIsEnabled,
+    NewlineOptionIsEnabled,
+    StyleOptionIsEnabled,
+    UnitOptionIsEnabled;
 long[string]
     PropertyIndexMap;
+double
+    MinimumPixelCount;
 
 // -- FUNCTIONS
 
@@ -505,6 +514,8 @@ void RemoveEmptyLines(
     long
         line_index;
 
+    line_array = line_array.join( '\n' ).split( '\n' );
+
     for ( line_index = 0;
           line_index < line_array.length;
           ++line_index )
@@ -571,6 +582,8 @@ void EmbedMedia(
         rule_selector;
     string[]
         media_rule_line_array;
+
+    line_array.RemoveEmptyLines();
 
     if ( file_has_tags )
     {
@@ -699,6 +712,8 @@ void SortDeclarations(
         line,
         next_line;
 
+    line_array.RemoveEmptyLines();
+
     for ( pass_index = 0;
           pass_index < 3;
           ++pass_index )
@@ -820,6 +835,98 @@ void SortDeclarations(
 
 // ~~
 
+void ConvertUnits(
+    ref string[] line_array,
+    bool file_has_tags
+    )
+{
+    bool
+        line_is_style;
+
+    double
+        pixel_count;
+    long
+        line_index,
+        line_property_index;
+    string
+        line,
+        new_text,
+        old_text;
+    Regex!char
+        expression = regex( `( -?[0-9.]+px)` );
+    Captures!( string )
+        match;
+
+    line_array.RemoveEmptyLines();
+
+    expression = regex( `( -?[0-9.]+px)` );
+    line_is_style = !file_has_tags;
+
+    for ( line_index = 0;
+          line_index < line_array.length;
+          ++line_index )
+    {
+        line = line_array[ line_index ];
+
+        if ( file_has_tags
+             && line.IsOpeningTag() )
+        {
+            line_is_style = true;
+        }
+        else if ( file_has_tags
+                  && line.IsClosingTag() )
+        {
+            line_is_style = false;
+        }
+        else if ( line_is_style )
+        {
+            line_property_index = line.GetPropertyIndex();
+
+            if ( line_property_index != 0 )
+            {
+                while ( !line_array[ line_index ].endsWith( ";" )
+                        && line_index + 1 < line_array.length
+                        && line_array[ line_index + 1 ] != ""
+                        && !line_array[ line_index + 1 ].IsClosingBrace() )
+                {
+                    line_array[ line_index ] ~= "\n" ~ line_array[ line_index + 1 ];
+                    line_array = line_array[ 0 .. line_index + 1 ] ~ line_array[ line_index + 2 .. $ ];
+                }
+
+                for ( ; ; )
+                {
+                    line = line_array[ line_index ];
+                    match = line.matchFirst( expression );
+
+                    if ( !match.empty() )
+                    {
+                        old_text = match[ 1 ];
+                        pixel_count = old_text[ 1 .. $ - 2 ].to!double();
+
+                        if ( pixel_count <= -MinimumPixelCount
+                             || pixel_count >= MinimumPixelCount )
+                        {
+                            new_text = ( " " ~ ( round( pixel_count / 16.0 * 10.0 ) / 10.0 ).to!string() ~ "rem" ).replace( ".0rem", "rem" );
+                        }
+                        else
+                        {
+                            break;    // TODO
+                        }
+
+                        line_array[ line_index ] = line.replace( old_text, new_text );
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ~~
+
 void ProcessFile(
     string file_path
     )
@@ -834,15 +941,30 @@ void ProcessFile(
     file_text = file_path.ReadText();
 
     line_array = file_text.GetLineArray();
-    line_array.RemoveEmptyLines();
+
+    if ( NewlineOptionIsEnabled )
+    {
+        line_array.RemoveEmptyLines();
+    }
 
     if ( file_path.HasDeclarations() )
     {
         file_has_tags = HasTags( file_text );
 
-        line_array.EmbedMedia( file_has_tags );
-        line_array.RemoveEmptyLines();
-        line_array.SortDeclarations( file_has_tags );
+        if ( MediaOptionIsEnabled )
+        {
+            line_array.EmbedMedia( file_has_tags );
+        }
+
+        if ( StyleOptionIsEnabled )
+        {
+            line_array.SortDeclarations( file_has_tags );
+        }
+
+        if ( UnitOptionIsEnabled )
+        {
+            line_array.ConvertUnits( file_has_tags );
+        }
     }
 
     file_path.WriteText( line_array.join( '\n' ) );
@@ -850,8 +972,8 @@ void ProcessFile(
 
 // ~~
 
-void ProcessFiles(
-    string[] file_path_filter_array
+void IncludeFilePaths(
+    string file_path_filter
     )
 {
     string
@@ -861,18 +983,13 @@ void ProcessFiles(
     SpanMode
         span_mode;
 
-    MakePropertyIndexMap();
+    SplitFilePathFilter( file_path_filter, folder_path, file_name_filter, span_mode );
 
-    foreach ( file_path_filter; file_path_filter_array )
+    foreach ( folder_entry; dirEntries( folder_path, file_name_filter, span_mode ) )
     {
-        SplitFilePathFilter( file_path_filter, folder_path, file_name_filter, span_mode );
-
-        foreach ( folder_entry; dirEntries( folder_path, file_name_filter, span_mode ) )
+        if ( folder_entry.isFile )
         {
-            if ( folder_entry.isFile )
-            {
-                ProcessFile( folder_entry.name.GetLogicalPath() );
-            }
+            ProcessFile( folder_entry.name.GetLogicalPath() );
         }
     }
 }
@@ -890,11 +1007,54 @@ void main(
 
     argument_array = argument_array[ 1 .. $ ];
 
-    if ( argument_array.length >= 1 )
+    NewlineOptionIsEnabled = false;
+    MediaOptionIsEnabled = false;
+    StyleOptionIsEnabled = false;
+    UnitOptionIsEnabled = false;
+
+    MakePropertyIndexMap();
+
+    while ( argument_array.length >= 1
+            && argument_array[ 0 ].startsWith( "--" ) )
     {
-        ProcessFiles( argument_array );
+        option = argument_array[ 0 ];
+
+        argument_array = argument_array[ 1 .. $ ];
+
+        if ( option == "--newline" )
+        {
+            NewlineOptionIsEnabled = true;
+        }
+        else if ( option == "--media" )
+        {
+            MediaOptionIsEnabled = true;
+        }
+        else if ( option == "--style" )
+        {
+            StyleOptionIsEnabled = true;
+        }
+        else if ( option == "--unit"
+                  && argument_array.length >= 1 )
+        {
+            UnitOptionIsEnabled = true;
+            MinimumPixelCount = argument_array[ 0 ].to!double;
+
+            argument_array = argument_array[ 1 .. $ ];
+        }
+        else if ( option == "--include"
+                  && argument_array.length >= 1 )
+        {
+            IncludeFilePaths( argument_array[ 0 ].GetLogicalPath() );
+
+            argument_array = argument_array[ 1 .. $ ];
+        }
+        else
+        {
+            Abort( "Invalid option : " ~ option );
+        }
     }
-    else
+
+    if ( argument_array.length != 0 )
     {
         writeln( "Usage :" );
         writeln( "    phyx <file path filter> ..." );

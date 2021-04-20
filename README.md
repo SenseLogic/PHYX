@@ -21,15 +21,16 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     background:
         url( '/static/image/header_menu/first_background.png' ),
         url( '/static/image/header_menu/second_background.png' );
+    font-size: 24px;
     padding: 0;
     margin: 0;
     border: 0;
     +Media( above-10em )
     {
         display: block;
-        padding: 11px;
-        margin: 11px;
-        border: 11px;
+        padding: 8px;
+        margin: 8px;
+        border: 8px;
     }
 
 }
@@ -41,6 +42,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     background:
         url( '/static/image/header_menu/first_background.png' ),
         url( '/static/image/header_menu/second_background.png' );
+    font-size: 24px;
     padding: 0;
     margin: 0;
 
@@ -48,9 +50,9 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     +Media( above-10em )
     {
         display: block;
-        padding: 12px;
-        margin: 12px;
-        border: 12px;
+        padding: 8px;
+        margin: 8px;
+        border: 8px;
     }
 }
 
@@ -59,17 +61,17 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     .header-menu
     {
         display: block;
-        padding: 21px;
-        margin: 21px;
-        border: 21px;
+        padding: 16px;
+        margin: 16px;
+        border: 16px;
     }
 
     .header-menu-button
     {
         display: block;
-        padding: 22px;
-        margin: 22px;
-        border: 22px;
+        padding: 16px;
+        margin: 16px;
+        border: 16px;
     }
 }
 
@@ -78,17 +80,17 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     .header-menu
     {
         display: block;
-        padding: 31px;
-        margin: 31px;
-        border: 31px;
+        padding: 24px;
+        margin: 24px;
+        border: 24px;
     }
 
     .header-menu-button
     {
         display: block;
-        padding: 32px;
-        margin: 32px;
-        border: 32px;
+        padding: 24px;
+        margin: 24px;
+        border: 24px;
     }
 }
 ```
@@ -110,29 +112,31 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
         url( '/static/image/header_menu/first_background.png' ),
         url( '/static/image/header_menu/second_background.png' );
 
+    font-size: 1.5rem;
+
     +Media( above-10em )
     {
-        margin: 11px;
-        border: 11px;
-        padding: 11px;
+        margin: 8px;
+        border: 8px;
+        padding: 8px;
 
         display: block;
     }
 
     +Media( above-20em )
     {
-        margin: 21px;
-        border: 21px;
-        padding: 21px;
+        margin: 1rem;
+        border: 1rem;
+        padding: 1rem;
 
         display: block;
     }
 
     +Media( above-30em )
     {
-        margin: 31px;
-        border: 31px;
-        padding: 31px;
+        margin: 1.5rem;
+        border: 1.5rem;
+        padding: 1.5rem;
 
         display: block;
     }
@@ -152,29 +156,31 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
         url( '/static/image/header_menu/first_background.png' ),
         url( '/static/image/header_menu/second_background.png' );
 
+    font-size: 1.5rem;
+
     +Media( above-10em )
     {
-        margin: 12px;
-        border: 12px;
-        padding: 12px;
+        margin: 8px;
+        border: 8px;
+        padding: 8px;
 
         display: block;
     }
 
     +Media( above-20em )
     {
-        margin: 22px;
-        border: 22px;
-        padding: 22px;
+        margin: 1rem;
+        border: 1rem;
+        padding: 1rem;
 
         display: block;
     }
 
     +Media( above-30em )
     {
-        margin: 32px;
-        border: 32px;
-        padding: 32px;
+        margin: 1.5rem;
+        border: 1.5rem;
+        padding: 1.5rem;
 
         display: block;
     }
@@ -194,16 +200,31 @@ dmd -m64 phyx.d
 ## Command line
 
 ```
-phyx <file path filter> ...
+phyx [options]
+```
+
+## Options
+
+```
+--newline : fix newlines
+--media : fix media queries
+--style : fix style declarations
+--unit <minimum pixel count> : fix pixel units
 ```
 
 ### Example
 
 ```bash
-phyx ".//*.pht" ".//*.phx" ".//*.styl"
+phyx --newline --include ".//*.phx"
 ```
 
-Fixes newlines and style declarations in `.pht`, `.phx` and `.styl` files of the current folder and its subfolders.
+Fixes newlines in `.phx` files of the current folder and its subfolders.
+
+```bash
+phyx --newline --media --style --unit --include ".//*.pht" --include ".//*.styl"
+```
+
+Fixes newlines, media queries, style declarations and pixel units in `.pht` and `.styl` files of the current folder and its subfolders.
 
 ## Limitations
 

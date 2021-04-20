@@ -2,5 +2,5 @@
 set -x
 cp ORIGINAL/CODE/STYLE/* FIXED/CODE/STYLE/
 cp ORIGINAL/CODE/VIEW/* FIXED/CODE/VIEW/
-../phyx "FIXED//*.pht" "FIXED//*.phx" "FIXED//*.styl"
-
+../phyx --newline --include "FIXED//*.phx"
+../phyx --newline --media --style --unit 16 --include "FIXED//*.pht" --include "FIXED//*.styl"
