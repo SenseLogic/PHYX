@@ -1057,9 +1057,15 @@ void main(
     if ( argument_array.length != 0 )
     {
         writeln( "Usage :" );
-        writeln( "    phyx <file path filter> ..." );
+        writeln( "    phyx <options>" );
+        writeln( "Options :" );
+        writeln( "    --newline" );
+        writeln( "    --media" );
+        writeln( "    --style" );
+        writeln( "    --unit <minimum pixel count>" );
         writeln( "Examples :" );
-        writeln( "    phyx \"VIEW//*.pht\" \"STYLE/*.styl\"" );
+        writeln( "    phyx --newline --include \".//*.phx\"" );
+        writeln( "    phyx --newline --media --style --unit --include \".//*.pht\" --include \".//*.styl\"" );
 
         PrintError( "Invalid arguments : " ~ argument_array.to!string() );
     }
