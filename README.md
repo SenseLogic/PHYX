@@ -97,7 +97,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
 
 ### After
 
-```php
+```bash
 .header-menu
 {
     @extend menu;
@@ -116,9 +116,9 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
 
     +Media( above-10em )
     {
-        margin: 8px;
-        border: 8px;
-        padding: 8px;
+        margin: 0.5rem;
+        border: 0.5rem;
+        padding: 0.5rem;
 
         display: block;
     }
@@ -160,9 +160,9 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
 
     +Media( above-10em )
     {
-        margin: 8px;
-        border: 8px;
-        padding: 8px;
+        margin: 0.5rem;
+        border: 0.5rem;
+        padding: 0.5rem;
 
         display: block;
     }
