@@ -10,7 +10,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
 
 ## Sample
 
-### Before
+### Before :
 
 ```bash
 .header-menu
@@ -19,8 +19,8 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     @extend menu;
     display: block;
     background:
-        url( '/static/image/header_menu/first_background.png' ),
-        url( '/static/image/header_menu/second_background.png' );
+        url( '/static/image/header_menu/first_background.png' ) no-repeat center center / cover,
+        url( '/static/image/header_menu/second_background.png' ) no-repeat center center / cover;
     font-size: 24px;
     padding: 0;
     margin: 0;
@@ -29,7 +29,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     {
         display: block;
         padding: 8px;
-        margin: 8px;
+        margin: 8px 16px;
         border: 8px;
     }
 
@@ -40,8 +40,8 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     @extend menu-button;
     display: block;
     background:
-        url( '/static/image/header_menu/first_background.png' ),
-        url( '/static/image/header_menu/second_background.png' );
+        url( '/static/image/header_menu/first_background.png' ) no-repeat center center / cover,
+        url( '/static/image/header_menu/second_background.png' ) no-repeat center center / cover;
     font-size: 24px;
     padding: 0;
     margin: 0;
@@ -51,7 +51,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     {
         display: block;
         padding: 8px;
-        margin: 8px;
+        margin: 8px 16px;
         border: 8px;
     }
 }
@@ -95,7 +95,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
 }
 ```
 
-### After
+### After :
 
 ```bash
 .header-menu
@@ -109,14 +109,14 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     display: block;
 
     background:
-        url( '/static/image/header_menu/first_background.png' ),
-        url( '/static/image/header_menu/second_background.png' );
+        url( '/static/image/header_menu/first_background.png' ) no-repeat center center / cover,
+        url( '/static/image/header_menu/second_background.png' ) no-repeat center center / cover;
 
     font-size: 1.5rem;
 
     +Media( above-10em )
     {
-        margin: 0.5rem;
+        margin: 0.5rem 1rem;
         border: 0.5rem;
         padding: 0.5rem;
 
@@ -153,14 +153,14 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     display: block;
 
     background:
-        url( '/static/image/header_menu/first_background.png' ),
-        url( '/static/image/header_menu/second_background.png' );
+        url( '/static/image/header_menu/first_background.png' ) no-repeat center center / cover,
+        url( '/static/image/header_menu/second_background.png' ) no-repeat center center / cover;
 
     font-size: 1.5rem;
 
     +Media( above-10em )
     {
-        margin: 0.5rem;
+        margin: 0.5rem 1rem;
         border: 0.5rem;
         padding: 0.5rem;
 

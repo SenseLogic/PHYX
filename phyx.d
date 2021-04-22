@@ -24,7 +24,7 @@ import core.stdc.stdlib : exit;
 import std.conv : to;
 import std.file : dirEntries, exists, readText, write, SpanMode;
 import std.math : round;
-import std.regex : matchFirst, regex, Captures, Regex;
+import std.regex : regex, replaceAll, Captures, Regex;
 import std.stdio : writeln;
 import std.string : endsWith, indexOf, join, lastIndexOf, replace, split, startsWith, strip, stripLeft, stripRight;
 
@@ -835,6 +835,20 @@ void SortDeclarations(
 
 // ~~
 
+string GetRemSize(
+    Captures!string pixel_size
+    )
+{
+    double
+        pixel_count;
+    
+    pixel_count = pixel_size[ 1 ][ 1 .. $ - 2 ].to!double();
+
+    return ( " " ~ ( pixel_count / 16.0 ).to!string() ~ "rem" ).replace( ".0rem", "rem" );
+}
+
+// ~~
+
 void ConvertUnits(
     ref string[] line_array,
     bool file_has_tags
@@ -842,24 +856,14 @@ void ConvertUnits(
 {
     bool
         line_is_style;
-
-    double
-        pixel_count;
     long
         line_index,
         line_property_index;
     string
-        line,
-        new_text,
-        old_text;
-    Regex!char
-        expression = regex( `( -?[0-9.]+px)` );
-    Captures!( string )
-        match;
+        line;
 
     line_array.RemoveEmptyLines();
-
-    expression = regex( `( -?[0-9.]+px)` );
+    
     line_is_style = !file_has_tags;
 
     for ( line_index = 0;
@@ -893,33 +897,7 @@ void ConvertUnits(
                     line_array = line_array[ 0 .. line_index + 1 ] ~ line_array[ line_index + 2 .. $ ];
                 }
 
-                for ( ; ; )
-                {
-                    line = line_array[ line_index ];
-                    match = line.matchFirst( expression );
-
-                    if ( !match.empty() )
-                    {
-                        old_text = match[ 1 ];
-                        pixel_count = old_text[ 1 .. $ - 2 ].to!double();
-
-                        if ( pixel_count <= -MinimumPixelCount
-                             || pixel_count >= MinimumPixelCount )
-                        {
-                            new_text = ( " " ~ ( round( pixel_count / 16.0 * 10.0 ) / 10.0 ).to!string() ~ "rem" ).replace( ".0rem", "rem" );
-                        }
-                        else
-                        {
-                            break;    // TODO
-                        }
-
-                        line_array[ line_index ] = line.replace( old_text, new_text );
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
+                line_array[ line_index ] = replaceAll!GetRemSize( line_array[ line_index ], regex( `( -?[0-9.]+px)` ) );
             }
         }
     }
