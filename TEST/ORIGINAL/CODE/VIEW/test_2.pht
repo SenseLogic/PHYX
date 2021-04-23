@@ -57,7 +57,7 @@
         background-size: contain;
 
 
-        +Media( above-30em )
+        +Media( min-width-30em )
         {
 
 
@@ -86,7 +86,7 @@
 
         }
 
-        +Media( above-40em )
+        +Media( min-width-40em )
         {
 
 
@@ -117,7 +117,7 @@
 
     }
 
-    +Media( above-50em )
+    +Media( min-width-50em )
     {
 
         .header-menu
@@ -178,7 +178,7 @@
 
     }
 
-    +Media( above-60em )
+    +Media( min-width-60em )
     {
 
         .header-menu

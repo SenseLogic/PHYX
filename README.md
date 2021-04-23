@@ -25,7 +25,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     padding: 0;
     margin: 0;
     border: 0;
-    +Media( above-10em )
+    +Media( min-width-10em )
     {
         display: block;
         padding: 8px;
@@ -47,7 +47,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     margin: 0;
 
     border: 0;
-    +Media( above-10em )
+    +Media( min-width-10em )
     {
         display: block;
         padding: 8px;
@@ -56,7 +56,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     }
 }
 
-+Media( above-20em )
++Media( min-width-20em )
 {
     .header-menu
     {
@@ -75,7 +75,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
     }
 }
 
-+Media( above-30em )
++Media( min-width-30em )
 {
     .header-menu
     {
@@ -114,7 +114,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
 
     font-size: 1.5rem;
 
-    +Media( above-10em )
+    +Media( min-width-10em )
     {
         margin: 0.5rem 1rem;
         border: 0.5rem;
@@ -123,7 +123,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
         display: block;
     }
 
-    +Media( above-20em )
+    +Media( min-width-20em )
     {
         margin: 1rem;
         border: 1rem;
@@ -132,7 +132,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
         display: block;
     }
 
-    +Media( above-30em )
+    +Media( min-width-30em )
     {
         margin: 1.5rem;
         border: 1.5rem;
@@ -158,7 +158,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
 
     font-size: 1.5rem;
 
-    +Media( above-10em )
+    +Media( min-width-10em )
     {
         margin: 0.5rem 1rem;
         border: 0.5rem;
@@ -167,7 +167,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
         display: block;
     }
 
-    +Media( above-20em )
+    +Media( min-width-20em )
     {
         margin: 1rem;
         border: 1rem;
@@ -176,7 +176,7 @@ Fixes newlines and style declarations according to [Coda](https://github.com/sen
         display: block;
     }
 
-    +Media( above-30em )
+    +Media( min-width-30em )
     {
         margin: 1.5rem;
         border: 1.5rem;
