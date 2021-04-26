@@ -417,17 +417,6 @@ long GetCategoryIndex(
 
 // ~~
 
-bool HasDeclarations(
-    string file_path
-    )
-{
-    return
-        file_path.endsWith( ".pht" )
-        || file_path.endsWith( ".styl" );
-}
-
-// ~~
-
 bool HasTags(
     string file_text
     )
@@ -917,6 +906,7 @@ void ProcessFile(
         line_array;
 
     file_text = file_path.ReadText();
+    file_has_tags = HasTags( file_text );
 
     line_array = file_text.GetLineArray();
 
@@ -925,24 +915,19 @@ void ProcessFile(
         line_array.RemoveEmptyLines();
     }
 
-    if ( file_path.HasDeclarations() )
+    if ( MediaOptionIsEnabled )
     {
-        file_has_tags = HasTags( file_text );
+        line_array.EmbedMedia( file_has_tags );
+    }
 
-        if ( MediaOptionIsEnabled )
-        {
-            line_array.EmbedMedia( file_has_tags );
-        }
+    if ( StyleOptionIsEnabled )
+    {
+        line_array.SortDeclarations( file_has_tags );
+    }
 
-        if ( StyleOptionIsEnabled )
-        {
-            line_array.SortDeclarations( file_has_tags );
-        }
-
-        if ( UnitOptionIsEnabled )
-        {
-            line_array.ConvertUnits( file_has_tags );
-        }
+    if ( UnitOptionIsEnabled )
+    {
+        line_array.ConvertUnits( file_has_tags );
     }
 
     file_path.WriteText( line_array.join( '\n' ) );
