@@ -794,6 +794,7 @@ void SortDeclarations(
                         if ( line.IsExtend() )
                         {
                             if ( next_line != ""
+                                 && !next_line.IsExtend()
                                  && !next_line.IsClosingBrace() )
                             {
                                 line_array[ line_index ] ~= "\n";
@@ -830,7 +831,7 @@ string GetRemSize(
 {
     double
         pixel_count;
-    
+
     pixel_count = pixel_size[ 1 ][ 1 .. $ - 2 ].to!double();
 
     return ( " " ~ ( pixel_count / 16.0 ).to!string() ~ "rem" ).replace( ".0rem", "rem" );
@@ -852,7 +853,7 @@ void ConvertUnits(
         line;
 
     line_array.RemoveEmptyLines();
-    
+
     line_is_style = !file_has_tags;
 
     for ( line_index = 0;
