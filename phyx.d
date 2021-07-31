@@ -285,6 +285,16 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "order:" ] = property_index++;
     PropertyIndexMap[ "float:" ] = property_index++;
     PropertyIndexMap[ "clear:" ] = property_index++;
+    PropertyIndexMap[ "columns:" ] = property_index++;
+    PropertyIndexMap[ "column-count:" ] = property_index++;
+    PropertyIndexMap[ "column-width:" ] = property_index++;
+    PropertyIndexMap[ "column-span:" ] = property_index++;
+    PropertyIndexMap[ "column-fill:" ] = property_index++;
+    PropertyIndexMap[ "column-gap:" ] = property_index++;
+    PropertyIndexMap[ "column-rule:" ] = property_index++;
+    PropertyIndexMap[ "column-rule-width:" ] = property_index++;
+    PropertyIndexMap[ "column-rule-style:" ] = property_index++;
+    PropertyIndexMap[ "column-rule-color:" ] = property_index++;
     PropertyIndexMap[ "shape-outside:" ] = property_index++;
     PropertyIndexMap[ "clip-path:" ] = property_index++;
     PropertyIndexMap[ "object-fit:" ] = property_index++;
