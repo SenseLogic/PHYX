@@ -268,6 +268,7 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "grid-template:" ] = property_index++;
     PropertyIndexMap[ "grid-template-rows:" ] = property_index++;
     PropertyIndexMap[ "grid-template-columns:" ] = property_index++;
+    PropertyIndexMap[ "grid-template-areas:" ] = property_index++;
     PropertyIndexMap[ "grid-auto-rows:" ] = property_index++;
     PropertyIndexMap[ "grid-gap:" ] = property_index++;
     PropertyIndexMap[ "gap:" ] = property_index++;
