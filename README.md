@@ -221,7 +221,7 @@ phyx --newline --include ".//*.phx"
 Fixes newlines in `.phx` files of the current folder and its subfolders.
 
 ```bash
-phyx --newline --media --style --unit --include ".//*.pht" --include ".//*.styl"
+phyx --newline --media --style --unit 2 --include ".//*.pht" --include ".//*.styl"
 ```
 
 Fixes newlines, media queries, style declarations and pixel units in `.pht` and `.styl` files of the current folder and its subfolders.
