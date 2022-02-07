@@ -1032,7 +1032,7 @@ void main(
     if ( argument_array.length != 0 )
     {
         writeln( "Usage :" );
-        writeln( "    phyx <options>" );
+        writeln( "    phyx [options]" );
         writeln( "Options :" );
         writeln( "    --newline" );
         writeln( "    --media" );
