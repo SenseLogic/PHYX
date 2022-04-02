@@ -221,6 +221,7 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "overflow-x:" ] = property_index++;
     PropertyIndexMap[ "box-sizing:" ] = property_index++;
     PropertyIndexMap[ "scrollbar-width:" ] = property_index++;
+    PropertyIndexMap[ "inset:" ] = property_index++;
     PropertyIndexMap[ "margin:" ] = property_index++;
     PropertyIndexMap[ "margin-top:" ] = property_index++;
     PropertyIndexMap[ "margin-bottom:" ] = property_index++;
