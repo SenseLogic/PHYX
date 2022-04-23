@@ -223,6 +223,12 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "scrollbar-width:" ] = property_index++;
     PropertyIndexMap[ "inset:" ] = property_index++;
     PropertyIndexMap[ "margin:" ] = property_index++;
+    PropertyIndexMap[ "margin-block:" ] = property_index++;
+    PropertyIndexMap[ "margin-block-start:" ] = property_index++;
+    PropertyIndexMap[ "margin-block-end:" ] = property_index++;
+    PropertyIndexMap[ "margin-inline:" ] = property_index++;
+    PropertyIndexMap[ "margin-inline-start:" ] = property_index++;
+    PropertyIndexMap[ "margin-inline-end:" ] = property_index++;
     PropertyIndexMap[ "margin-top:" ] = property_index++;
     PropertyIndexMap[ "margin-bottom:" ] = property_index++;
     PropertyIndexMap[ "margin-left:" ] = property_index++;
@@ -315,9 +321,13 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "background-size:" ] = property_index++;
     PropertyIndexMap[ "background-attachment:" ] = property_index++;
     PropertyIndexMap[ "box-shadow:" ] = property_index++;
+    PropertyIndexMap[ "filter:" ] = property_index++;
 
     property_index = 320;
     PropertyIndexMap[ "list-style-type:" ] = property_index++;
+    PropertyIndexMap[ "direction:" ] = property_index++;
+    PropertyIndexMap[ "writing-mode:" ] = property_index++;
+    PropertyIndexMap[ "text-orientation:" ] = property_index++;
     PropertyIndexMap[ "line-height:" ] = property_index++;
     PropertyIndexMap[ "font:" ] = property_index++;
     PropertyIndexMap[ "font-family:" ] = property_index++;
