@@ -359,6 +359,7 @@ void MakePropertyIndexMap(
 
     property_index = 384;
     PropertyIndexMap[ "resize:" ] = property_index++;
+    PropertyIndexMap[ "scroll-behavior:" ] = property_index++;
     PropertyIndexMap[ "scroll-snap-type:" ] = property_index++;
     PropertyIndexMap[ "scroll-snap-points-y:" ] = property_index++;
     PropertyIndexMap[ "scroll-snap-points-x:" ] = property_index++;
