@@ -240,6 +240,7 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "width:" ] = property_index++;
     PropertyIndexMap[ "min-width:" ] = property_index++;
     PropertyIndexMap[ "max-width:" ] = property_index++;
+    PropertyIndexMap[ "aspect-ratio:" ] = property_index++;
     PropertyIndexMap[ "border:" ] = property_index++;
     PropertyIndexMap[ "border-top:" ] = property_index++;
     PropertyIndexMap[ "border-bottom:" ] = property_index++;
