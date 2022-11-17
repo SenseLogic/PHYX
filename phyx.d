@@ -323,6 +323,7 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "background-attachment:" ] = property_index++;
     PropertyIndexMap[ "box-shadow:" ] = property_index++;
     PropertyIndexMap[ "filter:" ] = property_index++;
+    PropertyIndexMap[ "backdrop-filter:" ] = property_index++;
 
     property_index = 320;
     PropertyIndexMap[ "list-style-type:" ] = property_index++;
