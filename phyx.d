@@ -321,6 +321,15 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "background-repeat:" ] = property_index++;
     PropertyIndexMap[ "background-size:" ] = property_index++;
     PropertyIndexMap[ "background-attachment:" ] = property_index++;
+    PropertyIndexMap[ "mask:" ] = property_index++;
+    PropertyIndexMap[ "mask-clip:" ] = property_index++;
+    PropertyIndexMap[ "mask-composite:" ] = property_index++;
+    PropertyIndexMap[ "mask-image:" ] = property_index++;
+    PropertyIndexMap[ "mask-mode:" ] = property_index++;
+    PropertyIndexMap[ "mask-origin:" ] = property_index++;
+    PropertyIndexMap[ "mask-position:" ] = property_index++;
+    PropertyIndexMap[ "mask-repeat:" ] = property_index++;
+    PropertyIndexMap[ "mask-size:" ] = property_index++;
     PropertyIndexMap[ "box-shadow:" ] = property_index++;
     PropertyIndexMap[ "filter:" ] = property_index++;
     PropertyIndexMap[ "backdrop-filter:" ] = property_index++;
