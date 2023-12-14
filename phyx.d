@@ -26,7 +26,7 @@ import std.file : dirEntries, exists, readText, write, SpanMode;
 import std.math : round;
 import std.regex : regex, replaceAll, Captures, Regex;
 import std.stdio : writeln;
-import std.string : endsWith, indexOf, join, lastIndexOf, replace, split, startsWith, strip, stripLeft, stripRight;
+import std.string : endsWith, indexOf, join, lastIndexOf, replace, split, startsWith, strip, stripLeft, stripRight, toLower;
 
 // -- VARIABLES
 
@@ -515,7 +515,7 @@ bool IsMedia(
     trimmed_line = line.stripLeft();
 
     return
-        trimmed_line.startsWith( "+Media(" )
+        trimmed_line.toLower().startsWith( "+media(" )
         || trimmed_line.startsWith( "@media " );
 }
 
@@ -635,7 +635,7 @@ void EmbedMedia(
                       && !line_array[ media_line_index ].IsClosingTag();
                       ++media_line_index )
                 {
-                    if ( line_array[ media_line_index ].startsWith( indentation ~ "+Media(" )
+                    if ( line_array[ media_line_index ].toLower().startsWith( indentation ~ "+Media(" )
                          && line_array[ media_line_index + 1 ] == indentation ~ "{" )
                     {
                         media_query = line_array[ media_line_index ];
