@@ -216,6 +216,7 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "transform:" ] = property_index++;
 
     property_index = 128;
+    PropertyIndexMap[ "container-type:" ] = property_index++;
     PropertyIndexMap[ "overflow:" ] = property_index++;
     PropertyIndexMap[ "overflow-y:" ] = property_index++;
     PropertyIndexMap[ "overflow-x:" ] = property_index++;
