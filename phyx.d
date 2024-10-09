@@ -376,6 +376,7 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "font-variant-numeric:" ] = property_index++;
     PropertyIndexMap[ "font-variant-position:" ] = property_index++;
     PropertyIndexMap[ "font-variation-settings:" ] = property_index++;
+    PropertyIndexMap[ "hyphens:" ] = property_index++;
     PropertyIndexMap[ "white-space:" ] = property_index++;
     PropertyIndexMap[ "overflow-wrap:" ] = property_index++;
     PropertyIndexMap[ "word-wrap:" ] = property_index++;
