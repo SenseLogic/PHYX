@@ -207,6 +207,9 @@ void MakePropertyIndexMap(
         property_index;
 
     property_index = 64;
+    PropertyIndexMap[ "grid-area:" ] = property_index++;
+    PropertyIndexMap[ "grid-row:" ] = property_index++;
+    PropertyIndexMap[ "grid-column:" ] = property_index++;
     PropertyIndexMap[ "z-index:" ] = property_index++;
     PropertyIndexMap[ "position:" ] = property_index++;
     PropertyIndexMap[ "top:" ] = property_index++;
@@ -288,9 +291,6 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "gap:" ] = property_index++;
     PropertyIndexMap[ "row-gap:" ] = property_index++;
     PropertyIndexMap[ "column-gap:" ] = property_index++;
-    PropertyIndexMap[ "grid-area:" ] = property_index++;
-    PropertyIndexMap[ "grid-row:" ] = property_index++;
-    PropertyIndexMap[ "grid-column:" ] = property_index++;
     PropertyIndexMap[ "justify-content:" ] = property_index++;
     PropertyIndexMap[ "justify-items:" ] = property_index++;
     PropertyIndexMap[ "justify-self:" ] = property_index++;
@@ -310,6 +310,7 @@ void MakePropertyIndexMap(
     PropertyIndexMap[ "column-rule-width:" ] = property_index++;
     PropertyIndexMap[ "column-rule-style:" ] = property_index++;
     PropertyIndexMap[ "column-rule-color:" ] = property_index++;
+    PropertyIndexMap[ "break-inside:" ] = property_index++;
     PropertyIndexMap[ "shape-outside:" ] = property_index++;
     PropertyIndexMap[ "clip-path:" ] = property_index++;
     PropertyIndexMap[ "object-fit:" ] = property_index++;
